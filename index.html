@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>⚜ St Mina Scouts</title>
-    <link rel="icon" type="image/png" href="Back.png"> <!-- إضافة الأيقونة هنا -->
+    <link rel="icon" type="image/png" href="back.png"> <!-- إضافة الأيقونة هنا -->
     <style>
         body {
-            background-image: url('Back.png'); /* استبدل بمسار صورة الخلفية الجديدة */
+            background-image: url('back.png'); /* استبدل بمسار صورة الخلفية الجديدة */
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
@@ -22,7 +22,6 @@
             overflow-x: hidden;
         }
         .container{
-
             width: 100%;
             max-width: 600px;
             max-height: fit-content;
@@ -99,27 +98,110 @@
                 width: 90%;
             }
         }
+        /* Modal styles */
+        .modal {
+            display: none; /* يكون مخفياً افتراضياً */
+            position: fixed; /* يظل ثابتاً في المكان */
+            z-index: 1; /* يكون في الطبقة العلوية */
+            left: 0;
+            top: 0;
+            width: 100%; /* عرض كامل */
+            height: 100%; /* ارتفاع كامل */
+            overflow: auto; /* السماح بالتمرير إذا لزم الأمر */
+            background-color: rgba(0,0,0,0.6); /* خلفية سوداء شفافة */
+        }
+
+        .modal-content {
+            background-color: #7e7c29;
+            margin: 15% auto; /* تبعد عن الأعلى 15% وتكون مُركزة */
+            padding: 20px;
+            border: 1px solid #336699; /* حدود باللون الأزرق */
+            width: 50%; /* عرض 80% من الشاشة */
+            text-align: center;
+            border-radius: 30px; /* حواف مستديرة */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* ظل للبوب أب */
+        }
+
+        .close {
+            color: #993333; /* لون زر الإغلاق */
+            float: right;
+            font-size: 30px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: #ff6347; /* لون زر الإغلاق عند التحويل */
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .modal-content p {
+            font-size: 20px; /* حجم الخط */
+            line-height: 1.6; /* تباعد بين الأسطر */
+            color: #040703; /* لون النص */
+            margin-bottom: 20px; /* هامش أسفل النص */
+        }
+        /* Top bar styles */
+        .top-bar {
+            background-color: #7e7c29;
+            color: #040703; /* لون النص */
+            text-align: center; /* محاذاة النص في المنتصف */
+            padding: 10px 0; /* هامش داخلي للشريط */
+            font-size: 16px; /* حجم الخط */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* ظل للشريط */
+            border: 1px solid #336699; /* حدود باللون الأزرق */
+            position: fixed; /* تثبيت الشريط في الأعلى */
+            top: 0; /* الإبقاء على الشريط في الجزء العلوي */
+            left: 0;
+            width: 100%; /* عرض كامل */
+            z-index: 1000; /* تحديد الطبقة العلوية */
+        }
+
+        .note {
+            margin: 0; /* إزالة هامش الأولي */
+            line-height: 1.6; /* تباعد بين الأسطر */
+            font-weight: bold; /* خط عريض */
+        }
+
     </style>
 </head>
 <body>
-<div class="container">
-    <div class="in">
-        <input type="text" placeholder="ادخل الجملة المراد تشفيرها" id="input">
+    <div class="top-bar">
+        <div class="notes" style="display: none;">
+            <p>الموقع حاليا يدعم 3 شفرات فقط ( المربعه - الرقمية - المعكوسة )</p>
+            <p>في الشفرات ( حرف ال " ء " يحول الي حرف " أ " و حرف ال " ة " يحول الي حرف " ه " )</p>
+            <p>في الشفرة المربعة ( نأسف علي وجود الشفره بهذا الشكل ولكن يتم العمل حاليا علي اصلاح المشكله ف لذلك وتسهيلا بين كل حرف والاخر يوجد علامه " ***** " )</p>
+            <p>وشكرا لتفهمكم صلو من اجل الخدمه</p>
+            <button id="closeNotes">إغلاق</button>
+        </div>
     </div>
-    <div class="code">
-        <label for="choose_code"> اختار طريقة التشفير</label>
-        <select id="choose_code">
-            <option value="1">الشفرة الرقمية</option>
-            <option value="2">الشفرة المربعة</option>
-            <option value="3">الشفرة المعكوسة</option>
-        </select>
-    </div>
-    <button onclick="encryptName()">تشفير</button>
-    <pre id="output"></pre>
-    <footer><a href="https://linktr.ee/st.mina.scouts" target="_blank" class="footer-link" >By St.Mina Scouts ⚜❤</a>
+    
+    <div class="container">
+        <div class="in">
+            <input type="text" placeholder="ادخل الجملة المراد تشفيرها" id="input">
+        </div>
+        <div class="code">
+            <label for="choose_code"> اختار طريقة التشفير</label>
+            <select id="choose_code">
+                <option value="1">الشفرة الرقمية</option>
+                <option value="2">الشفرة المربعة</option>
+                <option value="3">الشفرة المعكوسة</option>
+            </select>
+        </div>
+        <button onclick="encryptName()">تشفير</button>
+        <pre id="output"></pre>
+        <footer><a href="https://linktr.ee/st.mina.scouts" target="_blank" class="footer-link" >By St.Mina Scouts ⚜❤</a>
         </footer>
-</div>
+    </div>
 
-<script src="main.js"></script>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <p>اهلا بيك في موقع كشافة ابطال العجايبي بكنيسة الشهيد العظيم مارمينا بالفيوم </p>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
 </body>
 </html>
