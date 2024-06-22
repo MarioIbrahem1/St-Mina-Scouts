@@ -111,3 +111,38 @@ function encryptUsingSections(name, sections, generateShape) {
     }
     return encryptedName;
 }
+// Modal functionality
+window.onload = function () {
+    const modal = document.getElementById("myModal");
+    const span = document.getElementsByClassName("close")[0];
+
+    modal.style.display = "block";
+
+    span.onclick = function () {
+        modal.style.display = "none";
+        const notes = document.querySelector('.notes');
+        notes.style.display = "block";
+        setTimeout(() => {
+            notes.style.display = "none";
+        }, 45000);
+    };
+
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+            const notes = document.querySelector('.notes');
+            notes.style.display = "block";
+            setTimeout(() => {
+                notes.style.display = "none";
+            }, 45000);
+        }
+    };
+
+    const closeNotesButton = document.getElementById("closeNotes");
+    closeNotesButton.onclick = function() {
+        const notes = document.querySelector('.notes');
+        notes.style.display = "none";
+    }
+};
+
+
